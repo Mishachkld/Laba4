@@ -135,7 +135,7 @@ void part3() { // 3 часть
     }
 
 for (int i = 0; i < N; i++){
-    A[i][indexOfMaxSum] *= 3;
+    A[i][indexOfMaxSum] *= 3; //
 }
 
 
