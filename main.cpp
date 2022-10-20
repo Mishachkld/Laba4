@@ -20,7 +20,7 @@ void outArray(std::vector<int> B) {     // вывод массива в случ
     }
 }
 
-void outArrayX(int B[][M]) {
+void outArrayX(int **B) {
     int lenX=N,lenY=M;
     for (int i = 0; i < lenX; i++) {
         for (int j = 0; j < lenY; j++)
@@ -118,7 +118,7 @@ void part3() { // 3 часть
     std::cin >> N >> M;
     int A[N][M];
     for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
+        for (int j = 0; j < M; j++) {
             std::cin >> tecNumber;
             A[i][j] = tecNumber;
         }
@@ -134,8 +134,8 @@ void part3() { // 3 часть
         }
     }
 
-for (int i = 0; i < M; i++){
-    A[indexOfMaxSum][i] *= 3;
+for (int i = 0; i < N; i++){
+    A[i][indexOfMaxSum] *= 3;
 }
 
 
