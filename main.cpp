@@ -152,15 +152,15 @@ void part3() { // 3 часть
 
 
 int main() {
-//    std::cout << "Write size of array:";
-//    std::cin >> N;
-//    int A[N];
-//    for (int i = 0; i < N; i++) {
-//        std::cin >> tecNumber;
-//        A[i] = tecNumber;
-//    }
-//    part1(A);
-//    part2(A);
+    std::cout << "Write size of array:";
+    std::cin >> N;
+    int A[N];
+    for (int i = 0; i < N; i++) {
+        std::cin >> tecNumber;
+        A[i] = tecNumber;
+    }
+    part1(A);
+    part2(A);
     part3();
 
 
