@@ -6,7 +6,7 @@
 int N, M;
 int tecNumber;
 
-void outArray(int* B) {                 // вывод массива в случае A
+void outArray(int *B) {                 // вывод массива в случае A
     int len = N;
     for (int i = 0; i < len; i++) {
         std::cout << B[i] << " ";
@@ -21,7 +21,7 @@ void outArray(std::vector<int> B) {     // вывод массива в случ
 }
 
 void outArrayX(int **B) {
-    int lenX=N,lenY=M;
+    int lenX = N, lenY = M;
     for (int i = 0; i < lenX; i++) {
         for (int j = 0; j < lenY; j++)
             std::cout << B[i][j] << " ";
@@ -33,7 +33,7 @@ void outArrayX(int **B) {
 bool checkForChangedSize(int *B) { // проверка на наличие в списке повторяющегося элемента
     bool result = false;
     int len = N;
-    std::set<int> compareArray(B, B + len); // преобразуем в множество что бы избавиться от повторок
+    std::set<int> compareArray(B, B + len); // преобразуем в множество что бы избавиться от повторений
     if (compareArray.size() != len)
         result = true;
     return result;
@@ -64,6 +64,7 @@ int compareEqual(int a, int b) {   // сравниваем  числа c оди�
 int compareForLastNumber(int a, int b) {
     return a % 10 > b % 10;
 } // ключ для сравнения (здесь по убыванию последней цифры)
+
 int compareForFirstNumber(int a, int b) {  // ключ для сравнения (здесь по возрастанию последней цифры)
     bool result;
     char16_t aString = std::to_string(a)[0];
@@ -80,7 +81,7 @@ int compareForFirstNumber(int a, int b) {  // ключ для сравнения
     return result;
 }
 
-std::vector<int> sortArray(int B[], int typeOfCompaer) {    // сортировка массива
+std::vector<int> sortArray(int *B, int typeOfCompaer) {    // сортировка массива
     std::vector<int> result(B, B + N);
     if (typeOfCompaer == false)
         std::sort(result.begin(), result.end(), compareForLastNumber);
@@ -88,7 +89,6 @@ std::vector<int> sortArray(int B[], int typeOfCompaer) {    // сортиров�
         std::sort(result.begin(), result.end(), compareForFirstNumber);
     return result;
 }
-
 
 
 void part1(int *A) {  // 1 часть лабораторной
@@ -110,7 +110,7 @@ void part2(int *A) { // 2 часть
 }
 
 void part3() { // 3 часть
-    int sum = 0;
+    int sum;
     int maxSum = -100;
     int indexOfMaxSum;
 
@@ -123,10 +123,10 @@ void part3() { // 3 часть
             A[i][j] = tecNumber;
         }
     }
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < M; i++) {   // ищем столбец с максимальной суммой
         sum = 0;
         for (int j = 0; j < N; j++) {
-            sum += A[i][j];
+            sum += A[j][i];
         }
         if (sum > maxSum) {
             maxSum = sum;
@@ -134,18 +134,18 @@ void part3() { // 3 часть
         }
     }
 
-for (int i = 0; i < N; i++){
-    A[i][indexOfMaxSum] *= 3; //
-}
+    for (int i = 0; i < N; i++) {  // умножаем нужный столбец на 3
+        A[i][indexOfMaxSum] *= 3;
+    }
 
 
-
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < N; i++) {  // вывод матрицы
         for (int j = 0; j < M; j++)
             std::cout << A[i][j] << " ";
         std::cout << std::endl;
     }
-
+    std::cout << "Max sum of column:" << " " << maxSum << std::endl;
+    std::cout << "Index of max sum column:" << " " << indexOfMaxSum << std::endl;
 
 
 }
