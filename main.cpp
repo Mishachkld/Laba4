@@ -5,6 +5,8 @@
 
 int N, M;
 int tecNumber;
+#define ARRAY_SIZE 1002
+#define MATRIX_SIZE 102
 
 void outArray(int *B) {                 // вывод массива в случае A
     int len = N;
@@ -65,7 +67,7 @@ int compareForLastNumber(int a, int b) {
     return a % 10 > b % 10;
 } // ключ для сравнения (здесь по убыванию последней цифры)
 
-int compareForFirstNumber(int a, int b) {  // ключ для сравнения (здесь по возрастанию последней цифры)
+int compareForFirstNumber(int a, int b) {  // ключ для сравнения (здесь по возрастанию первой цифры)
     bool result;
     char16_t aString = std::to_string(a)[0];
     char16_t bString = std::to_string(b)[0];
@@ -73,10 +75,8 @@ int compareForFirstNumber(int a, int b) {  // ключ для сравнения
     int B = bString - '0';
     if (A != B)         // сравниваем первые цифры
         result = (A < B);
-    else {
+    else
         result = compareEqual(a, b);
-
-    }
 
     return result;
 }
@@ -116,13 +116,14 @@ void part3() { // 3 часть
 
     std::cout << "Write size of array N*M:";
     std::cin >> N >> M;
-    int A[N][M];
+    int A[MATRIX_SIZE][MATRIX_SIZE];
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             std::cin >> tecNumber;
             A[i][j] = tecNumber;
         }
     }
+
     for (int i = 0; i < M; i++) {   // ищем столбец с максимальной суммой
         sum = 0;
         for (int j = 0; j < N; j++) {
@@ -154,7 +155,7 @@ void part3() { // 3 часть
 int main() {
     std::cout << "Write size of array:";
     std::cin >> N;
-    int A[N];
+    int A[ARRAY_SIZE];
     for (int i = 0; i < N; i++) {
         std::cin >> tecNumber;
         A[i] = tecNumber;
