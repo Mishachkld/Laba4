@@ -5,7 +5,7 @@
 
 int N, M;
 int tecNumber;
-#define ARRAY_SIZE 1002
+//#define ARRAY_SIZE 1002
 #define MATRIX_SIZE 102
 
 void outArray(int *B) {                 // вывод массива в случае A
@@ -15,12 +15,6 @@ void outArray(int *B) {                 // вывод массива в случ
     }
 }
 
-void outArray(std::vector<int> B) {     // вывод массива в случае B
-    int len = N;
-    for (int i = 0; i < len; i++) {
-        std::cout << B[i] << " ";
-    }
-}
 
 void outArrayX(int **B) {
     int lenX = N, lenY = M;
@@ -63,9 +57,9 @@ int compareEqual(int a, int b) {   // сравниваем  числа c оди�
     return result;
 }
 
-int compareForLastNumber(int a, int b) {
+int compareForLastNumber(int a, int b) {  // ключ для сравнения (здесь по убыванию последней цифры)
     return a % 10 > b % 10;
-} // ключ для сравнения (здесь по убыванию последней цифры)
+}
 
 int compareForFirstNumber(int a, int b) {  // ключ для сравнения (здесь по возрастанию первой цифры)
     bool result;
@@ -81,20 +75,22 @@ int compareForFirstNumber(int a, int b) {  // ключ для сравнения
     return result;
 }
 
-std::vector<int> sortArray(int *B, int typeOfCompaer) {    // сортировка массива
-    std::vector<int> result(B, B + N);
-    if (typeOfCompaer == false)
-        std::sort(result.begin(), result.end(), compareForLastNumber);
+void sortArray(int* B, int typeOfCompare) {    // сортировка массива
+
+    if (typeOfCompare == false)
+        std::sort(B, B + N, compareForLastNumber);
     else
-        std::sort(result.begin(), result.end(), compareForFirstNumber);
-    return result;
+        std::sort(B, B + N, compareForFirstNumber);
+
 }
 
 
 void part1(int *A) {  // 1 часть лабораторной
 
-    if (checkForChangedSize(A))
-        outArray(sortArray(A, 0));
+    if (checkForChangedSize(A)) {
+        sortArray(A, 0);
+        outArray(A);
+    }
     else
         outArray(A);
     std::cout << " " << std::endl;
@@ -102,8 +98,8 @@ void part1(int *A) {  // 1 часть лабораторной
 }
 
 void part2(int *A) { // 2 часть
-
-    outArray(sortArray(A, 1));
+    sortArray(A, 1);
+    outArray(A);
 
     std::cout << " " << std::endl;
 
@@ -155,7 +151,8 @@ void part3() { // 3 часть
 int main() {
     std::cout << "Write size of array:";
     std::cin >> N;
-    int A[ARRAY_SIZE];
+
+    int* A = new int[N];
     for (int i = 0; i < N; i++) {
         std::cin >> tecNumber;
         A[i] = tecNumber;
