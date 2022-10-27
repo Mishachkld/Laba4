@@ -82,7 +82,7 @@ int* mySortForLastNumber(int* B){ //ласт намбер
 
 
     return B;
-}int* mySortForFirstNumber(int* B){   //ферст намбер
+}int* mySortForFirstNumber(int* B){   //сортировка по первой цифре
     int len = N, temp = 0;
     for (int i = 0; i < len - 1; i++) {
         for (int j = i + 1; j < len; j++) {
@@ -97,7 +97,7 @@ int* mySortForLastNumber(int* B){ //ласт намбер
     return B;
 }
 
-int* sortArray(int* B, int typeOfCompare) {    // сортировка массива
+int* sortArray(int* B, int typeOfCompare) {    // способ сортировки массива
     if (typeOfCompare == false)
         B = mySortForLastNumber(B); //std::sort(B, B + N, compareForLastNumber);
     else
