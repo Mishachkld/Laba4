@@ -5,7 +5,7 @@
 
 int N, M;
 int tecNumber;
-//#define ARRAY_SIZE 1002
+#define ARRAY_SIZE 1002
 #define MATRIX_SIZE 102
 
 void outArray(int *B) {                 // вывод массива в случае A
@@ -16,24 +16,16 @@ void outArray(int *B) {                 // вывод массива в случ
 }
 
 
-void outArrayX(int **B) {
-    int lenX = N, lenY = M;
-    for (int i = 0; i < lenX; i++) {
-        for (int j = 0; j < lenY; j++)
-            std::cout << B[i][j] << " ";
-        std::cout << std::endl;
+bool checkForRepeat(int *B){ // проверка на наличие в списке повторяющегося элемента
+    for (int i = 0; i < N; i++) {
+        for (int j = i+1; j < N; j++) {
+            if(B[i] == B[j])
+                return true;
+        }
     }
+    return false;
 }
 
-
-bool checkForChangedSize(int *B) { // проверка на наличие в списке повторяющегося элемента
-    bool result = false;
-    int len = N;
-    std::set<int> compareArray(B, B + len); // преобразуем в множество что бы избавиться от повторений
-    if (compareArray.size() != len)
-        result = true;
-    return result;
-}
 
 
 int multip(int a) {   // перемножаем цифры числа
@@ -75,19 +67,55 @@ int compareForFirstNumber(int a, int b) {  // ключ для сравнения
     return result;
 }
 
-void sortArray(int* B, int typeOfCompare) {    // сортировка массива
+int* mySortForLastNumber(int* B){ //ласт намбер
 
-    if (typeOfCompare == false)
-        std::sort(B, B + N, compareForLastNumber);
-    else
-        std::sort(B, B + N, compareForFirstNumber);
+    int len = N, temp = 0;
+    for (int i = 0; i < len - 1; i++) {
+        for (int j = i + 1; j < len; j++) {
+            if(compareForLastNumber(B[j], B[i])){
+                temp = B[i];
+                B[i] = B[j];
+                B[j] = temp;
+            }
+        }
+    }
 
+
+    return B;
+}int* mySortForFirstNumber(int* B){   //ферст намбер
+    int len = N, temp = 0;
+    for (int i = 0; i < len - 1; i++) {
+        for (int j = i + 1; j < len; j++) {
+            if(compareForFirstNumber(B[j], B[i])){
+                temp = B[i];
+                B[i] = B[j];
+                B[j] = temp;
+            }
+        }
+    }
+
+    return B;
 }
+
+int* sortArray(int* B, int typeOfCompare) {    // сортировка массива
+    if (typeOfCompare == false)
+        B = mySortForLastNumber(B); //std::sort(B, B + N, compareForLastNumber);
+    else
+        B = mySortForFirstNumber(B); // std::sort(B, B + N, compareForFirstNumber);
+
+    return B;
+}
+//----------------------------------------------------------------------------------\\
+
+
+
+
+
 
 
 void part1(int *A) {  // 1 часть лабораторной
 
-    if (checkForChangedSize(A)) {
+    if (checkForRepeat(A)) {
         sortArray(A, 0);
         outArray(A);
     }
@@ -152,11 +180,14 @@ int main() {
     std::cout << "Write size of array:";
     std::cin >> N;
 
-    int* A = new int[N];
+    int A[ARRAY_SIZE];
     for (int i = 0; i < N; i++) {
         std::cin >> tecNumber;
         A[i] = tecNumber;
     }
+//    outArray(mySortForFirstNumber(A));
+
+
     part1(A);
     part2(A);
     part3();
