@@ -1,11 +1,7 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <set>
 
 int N, M;
-int tecNumber;
-#define ARRAY_SIZE 1002
+#define ARRAY_SIZE 10002
 #define MATRIX_SIZE 102
 
 void outArray(int *B) {                 // вывод массива в случае A
@@ -55,14 +51,14 @@ int compareForLastNumber(int a, int b) {  // ключ для сравнения 
 
 int compareForFirstNumber(int a, int b) {  // ключ для сравнения (здесь по возрастанию первой цифры)
     bool result;
-    char16_t aString = std::to_string(a)[0];
-    char16_t bString = std::to_string(b)[0];
-    int A = aString - '0';
-    int B = bString - '0';
+    char16_t aChar = std::to_string(a)[0];
+    char16_t bChar = std::to_string(b)[0];
+    int A = aChar - '0';
+    int B = bChar - '0';
     if (A != B)         // сравниваем первые цифры
         result = (A < B);
     else
-        result = compareEqual(a, b);
+        result = compareEqual(a, b);   // доп сравнение одинаковых первых цифр
 
     return result;
 }
@@ -143,8 +139,7 @@ void part3() { // 3 часть
     int A[MATRIX_SIZE][MATRIX_SIZE];
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            std::cin >> tecNumber;
-            A[i][j] = tecNumber;
+            std::cin >> A[i][j];
         }
     }
 
@@ -182,8 +177,7 @@ int main() {
 
     int A[ARRAY_SIZE];
     for (int i = 0; i < N; i++) {
-        std::cin >> tecNumber;
-        A[i] = tecNumber;
+        std::cin >> A[i];
     }
     part1(A);
     part2(A);
